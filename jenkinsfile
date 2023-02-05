@@ -1,0 +1,30 @@
+pipeline {
+	agent {label any}
+
+	stages {
+		stage ("Build the package") {
+			steps {
+				node ("build_server") {
+					print ("Building the war package")
+					sh "mvn install"
+					print ("Stashing the war package")
+					stash (include: "/var/lib/jenkins/workspace/maven_build/target/hello-world-web-app.war", name: "app_package")
+				}
+			}
+		}
+		stage ("Deploy the package") {
+			steps {
+				node ("deploy_server") {
+					print ("Deleting the old package")
+					sh "rm -rf /usr/local/tomcat/webapps/hello-world-web-app.war"
+
+					print ("Unstash the war package")
+					unstash ( name: "app_package")
+
+					// print ("Copy the new war package")
+					// sh "cp "
+				}
+			}
+		}
+	}
+}
