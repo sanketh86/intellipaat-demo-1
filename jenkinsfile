@@ -9,7 +9,7 @@ pipeline {
 					print ("Building the war package")
 					sh "mvn install"
 					print ("Stashing the war package")
-					stash (includes: "/var/lib/jenkins/workspace/maven_build/target/hello-world-web-app.war", name: "app_package")
+					stash (includes: "/app/build_server/workspace/Deploy_pipeline/target/hello-world-web-app.war", name: "app_package")
 				}
 			}
 		}
