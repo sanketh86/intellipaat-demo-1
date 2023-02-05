@@ -12,7 +12,7 @@ pipeline {
 					sh "mvn install"
 				
 					print ("Stash the package")
-					stash ( includes: "/app/build_server/workspace/declarative_pipeline_example/target/hello-world-web-app.war", name: "package")
+					stash ( includes: "/app/build_server/workspace/declarative_pipeline_example/target/hello-world-web-app.war", allowEmpty: false, name: "package")
 				}
 			}
 		}
